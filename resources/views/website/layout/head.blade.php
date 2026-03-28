@@ -40,7 +40,9 @@
 <link rel="stylesheet" href="{{ asset('vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendors/vegas/vegas.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendors/jquery-ui/jquery-ui.css') }}">
+@if (file_exists(public_path('vendors/timepicker/timePicker.css')))
 <link rel="stylesheet" href="{{ asset('vendors/timepicker/timePicker.css') }}">
+@endif
 <link rel="stylesheet" href="{{ asset('vendors/nice-select/nice-select.css') }}">
 <link rel="stylesheet" href="{{ asset('css/hekaya.css') }}">
 <link rel="stylesheet" href="{{ asset('css/hekaya-responsive.css') }}">

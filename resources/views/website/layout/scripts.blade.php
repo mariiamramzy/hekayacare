@@ -67,7 +67,9 @@
 <script src="{{ asset('vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('vendors/vegas/vegas.min.js') }}"></script>
 <script src="{{ asset('vendors/jquery-ui/jquery-ui.js') }}"></script>
+@if (file_exists(public_path('vendors/timepicker/timePicker.js')))
 <script src="{{ asset('vendors/timepicker/timePicker.js') }}"></script>
+@endif
 <script src="{{ asset('vendors/circleType/jquery.circleType.js') }}"></script>
 <script src="{{ asset('vendors/circleType/jquery.lettering.min.js') }}"></script>
 <script src="{{ asset('vendors/sidebar-content/jquery-sidebar-content.js') }}"></script>

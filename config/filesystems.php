@@ -40,8 +40,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'https://hekayacare.com'), '/').'/storage',
+            'root' => env('PUBLIC_DISK_ROOT', storage_path('app/public')),
+            'url' => rtrim(env('PUBLIC_DISK_URL', rtrim(env('APP_URL', 'https://hekayacare.com'), '/').'/storage'), '/'),
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -74,7 +74,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage') => env('PUBLIC_DISK_LINK_TARGET', storage_path('app/public')),
     ],
 
 ];

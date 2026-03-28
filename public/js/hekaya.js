@@ -147,7 +147,9 @@
     $("#datepicker-inline").datepicker();
   }
 
-  $('input[name="time"]').ptTimeSelect();
+  if ($.fn.ptTimeSelect && $('input[name="time"]').length) {
+    $('input[name="time"]').ptTimeSelect();
+  }
 
   if ($(".banner-bg-slide").length) {
     $(".banner-bg-slide").each(function () {
