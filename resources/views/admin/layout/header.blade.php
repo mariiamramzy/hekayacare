@@ -42,15 +42,15 @@
 
 <header class="header-main">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6 col-sm-4 d-flex align-items-center header-left p-0">
-                <span class="header-toggle me-3">
-                    <i class="ph ph-circles-four"></i>
-                </span>
-            </div>
-
-            <div class="col-6 col-sm-8 d-flex align-items-center justify-content-end header-right p-0">
+        <div class="header-main__toolbar d-flex align-items-center justify-content-end">
+            <div class="header-right d-flex align-items-center justify-content-end p-0">
                 <ul class="d-flex align-items-center">
+                    <li class="header-toggle-item">
+                        <span class="header-toggle">
+                            <i class="ph ph-circles-four"></i>
+                        </span>
+                    </li>
+
                     <li class="header-searchbar">
                         <a href="#" class="d-block head-icon" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <i class="ph ph-magnifying-glass"></i>

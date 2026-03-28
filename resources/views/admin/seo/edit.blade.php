@@ -57,9 +57,10 @@
                     => ['score' => 100, 'label' => 'Valid', 'tone' => 'success', 'hint' => 'Common OG type'],
                 default => ['score' => 65, 'label' => 'Custom', 'tone' => 'warning', 'hint' => 'Make sure the type is intentional'],
             },
-            'og_site_name' => empty($text)
-                ? ['score' => 0, 'label' => 'مفقود', 'tone' => 'danger', 'hint' => 'أضف اسم الموقع أو العلامة'],
-                : ['score' => 90, 'label' => 'جيد', 'tone' => 'success', 'hint' => 'اسم العلامة موجود'],
+            'og_site_name' => match (true) {
+                empty($text) => ['score' => 0, 'label' => 'مفقود', 'tone' => 'danger', 'hint' => 'أضف اسم الموقع أو العلامة'],
+                default => ['score' => 90, 'label' => 'جيد', 'tone' => 'success', 'hint' => 'اسم العلامة موجود'],
+            },
             'twitter_card' => match (true) {
                 empty($text) => ['score' => 0, 'label' => 'Missing', 'tone' => 'danger', 'hint' => 'Usually summary_large_image'],
                 in_array(strtolower((string) $text), ['summary', 'summary_large_image'], true)
