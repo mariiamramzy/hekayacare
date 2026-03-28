@@ -1,12 +1,12 @@
 @extends('admin.layout')
 
-@section('title', 'Permissions')
+@section('title', 'الصلاحيات')
 
 @section('content')
     <section class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <h2 class="page-title" style="margin: 0;">Permissions</h2>
-            <a class="btn btn-primary" href="{{ route('admin.permissions.create') }}">Add Permission</a>
+            <h2 class="page-title" style="margin: 0;">الصلاحيات</h2>
+            <a class="btn btn-primary" href="{{ route('admin.permissions.create') }}">إضافة صلاحية</a>
         </div>
 
         <div class="table-wrap">
@@ -14,9 +14,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Label</th>
-                        <th>Actions</th>
+                        <th>الاسم</th>
+                        <th>الاسم الظاهر</th>
+                        <th>الإجراءات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,23 +27,22 @@
                             <td>{{ $permission->label ?: '-' }}</td>
                             <td>
                                 <div class="actions">
-                                    <a class="btn btn-secondary" href="{{ route('admin.permissions.edit', $permission) }}">Edit</a>
-                                    <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}" onsubmit="return confirm('Delete this permission?');">
+                                    <a class="btn btn-secondary" href="{{ route('admin.permissions.edit', $permission) }}">تعديل</a>
+                                    <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}" onsubmit="return confirm('هل تريد حذف هذه الصلاحية؟');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-danger" type="submit">حذف</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="muted">No permissions found.</td>
+                            <td colspan="4" class="muted">لا توجد صلاحيات.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     </section>
-
 @endsection

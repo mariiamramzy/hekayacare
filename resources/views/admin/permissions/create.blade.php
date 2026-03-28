@@ -1,13 +1,13 @@
 @extends('admin.layout')
 
-@section('title', 'Create Permission')
+@section('title', 'إضافة صلاحية')
 
 @section('content')
     <section class="card">
-        <h2 class="page-title">Create Permission</h2>
+        <h2 class="page-title">إضافة صلاحية</h2>
         <form method="POST" action="{{ route('admin.permissions.store') }}">
             @csrf
-            @include('admin.permissions._form', ['buttonText' => 'Create Permission'])
+            @include('admin.permissions._form', ['buttonText' => 'حفظ الصلاحية'])
         </form>
     </section>
 @endsection

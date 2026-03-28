@@ -26,7 +26,7 @@
     <label for="photo_image">Photo</label>
     <input id="photo_image" type="file" name="photo_image" accept="image/*">
     @if(isset($teamMember) && $teamMember->photoMedia?->path)
-        <div class="muted" style="margin-top:6px;">Current: <a href="{{ asset('storage/'.$teamMember->photoMedia->path) }}" target="_blank">View image</a></div>
+        <div class="muted" style="margin-top:6px;">الحالية: <a href="{{ asset('storage/'.$teamMember->photoMedia->path) }}" target="_blank">عرض الصورة</a></div>
     @endif
 </div>
 
@@ -54,7 +54,7 @@
                 {{ $department->name_ar }}
             </label>
         @empty
-            <span class="muted">No departments found.</span>
+            <span class="muted">لا توجد أقسام.</span>
         @endforelse
     </div>
 </div>

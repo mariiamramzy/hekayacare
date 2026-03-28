@@ -34,6 +34,7 @@ use App\Http\Controllers\Website\FaqController as WebsiteFaqController;
 use App\Http\Controllers\Website\GalleryController as WebsiteGalleryController;
 use App\Http\Controllers\Website\PortfolioController as WebsitePortfolioController;
 use App\Http\Controllers\Website\SearchController as WebsiteSearchController;
+use App\Http\Controllers\Website\SitemapController as WebsiteSitemapController;
 use App\Http\Controllers\Website\TeamController as WebsiteTeamController;
 use App\Models\BlogPost;
 use App\Models\Faq;
@@ -79,6 +80,7 @@ Route::get('/', function () {
 
     return view('website.index', compact('latestBlogPosts', 'teamMembers', 'featuredFaqs', 'latestPortfolioCases'));
 })->name('website.home');
+Route::get('/sitemap.xml', WebsiteSitemapController::class)->name('website.sitemap');
 Route::view('/about', 'website.about')->name('website.about');
 Route::get('/team', [WebsiteTeamController::class, 'index'])->name('website.team');
 Route::get('/gallery', [WebsiteGalleryController::class, 'index'])->name('website.gallery');

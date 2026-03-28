@@ -1,13 +1,13 @@
 @extends('admin.layout')
 
-@section('title', 'Create Item')
+@section('title', 'إضافة عنصر')
 
 @section('content')
     <section class="card">
-        <h2 class="page-title">Create Section Item</h2>
+        <h2 class="page-title">إضافة عنصر للقسم</h2>
         <form method="POST" action="{{ route('admin.pages.sections.items.store', [$page, $section]) }}" enctype="multipart/form-data">
             @csrf
-            @include('admin.items._form', ['buttonText' => 'Create Item'])
+            @include('admin.items._form', ['buttonText' => 'حفظ العنصر'])
         </form>
     </section>
 @endsection

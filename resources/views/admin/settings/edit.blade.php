@@ -25,7 +25,7 @@
                 <label for="logo_image">Logo Image</label>
                 <input id="logo_image" type="file" name="logo_image" accept="image/*">
                 @if($setting->logoMedia?->path)
-                    <div class="muted" style="margin-top:6px;">Current: <a href="{{ asset('storage/'.$setting->logoMedia->path) }}" target="_blank">View logo</a></div>
+                    <div class="muted" style="margin-top:6px;">الحالي: <a href="{{ asset('storage/'.$setting->logoMedia->path) }}" target="_blank">عرض الشعار</a></div>
                 @endif
             </div>
 
@@ -33,7 +33,7 @@
                 <label for="favicon_image">Favicon Image</label>
                 <input id="favicon_image" type="file" name="favicon_image" accept="image/*">
                 @if($setting->faviconMedia?->path)
-                    <div class="muted" style="margin-top:6px;">Current: <a href="{{ asset('storage/'.$setting->faviconMedia->path) }}" target="_blank">View favicon</a></div>
+                    <div class="muted" style="margin-top:6px;">الحالي: <a href="{{ asset('storage/'.$setting->faviconMedia->path) }}" target="_blank">عرض الأيقونة</a></div>
                 @endif
             </div>
 
@@ -83,8 +83,8 @@
             </div>
 
             <div class="actions">
-                <button type="submit" class="btn btn-primary">Save Settings</button>
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">رجوع</a>
             </div>
         </form>
     </section>

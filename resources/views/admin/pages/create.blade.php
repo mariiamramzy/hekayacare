@@ -1,13 +1,13 @@
 @extends('admin.layout')
 
-@section('title', 'Create Page')
+@section('title', 'إضافة صفحة')
 
 @section('content')
     <section class="card">
-        <h2 class="page-title">Create CMS Page</h2>
+        <h2 class="page-title">إضافة صفحة</h2>
         <form method="POST" action="{{ route('admin.pages.store') }}">
             @csrf
-            @include('admin.pages._form', ['buttonText' => 'Create Page'])
+            @include('admin.pages._form', ['buttonText' => 'حفظ الصفحة'])
         </form>
     </section>
 @endsection

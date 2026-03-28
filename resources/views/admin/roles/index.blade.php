@@ -1,12 +1,12 @@
 @extends('admin.layout')
 
-@section('title', 'Roles')
+@section('title', 'الأدوار')
 
 @section('content')
     <section class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <h2 class="page-title" style="margin: 0;">Roles</h2>
-            <a class="btn btn-primary" href="{{ route('admin.roles.create') }}">Add Role</a>
+            <h2 class="page-title" style="margin: 0;">الأدوار</h2>
+            <a class="btn btn-primary" href="{{ route('admin.roles.create') }}">إضافة دور</a>
         </div>
 
         <div class="table-wrap">
@@ -14,10 +14,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Label</th>
-                        <th>Permissions</th>
-                        <th>Actions</th>
+                        <th>الاسم</th>
+                        <th>الاسم الظاهر</th>
+                        <th>الصلاحيات</th>
+                        <th>الإجراءات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,30 +28,29 @@
                             <td>{{ $role->label ?: '-' }}</td>
                             <td>
                                 @forelse ($role->permissions as $permission)
-                                    <span class="badge">{{ $permission->name }}</span>
+                                    <span class="badge">{{ $permission->label ?: $permission->name }}</span>
                                 @empty
                                     <span class="muted">-</span>
                                 @endforelse
                             </td>
                             <td>
                                 <div class="actions">
-                                    <a class="btn btn-secondary" href="{{ route('admin.roles.edit', $role) }}">Edit</a>
-                                    <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" onsubmit="return confirm('Delete this role?');">
+                                    <a class="btn btn-secondary" href="{{ route('admin.roles.edit', $role) }}">تعديل</a>
+                                    <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" onsubmit="return confirm('هل تريد حذف هذا الدور؟');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-danger" type="submit">حذف</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="muted">No roles found.</td>
+                            <td colspan="5" class="muted">لا توجد أدوار.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     </section>
-
 @endsection

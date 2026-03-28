@@ -26,7 +26,7 @@
                 {{ $category->name_ar }}
             </label>
         @empty
-            <span class="muted">No categories found.</span>
+            <span class="muted">لا توجد تصنيفات.</span>
         @endforelse
     </div>
 </div>

@@ -38,9 +38,9 @@
                 default => ['score' => 45, 'label' => 'Weak', 'tone' => 'danger', 'hint' => 'Too short or too long'],
             },
             'meta_keywords_ar' => match (true) {
-                empty($text) => ['score' => 0, 'label' => 'Missing', 'tone' => 'danger', 'hint' => 'Add comma-separated keywords'],
-                str_contains((string) $text, ',') => ['score' => 80, 'label' => 'Good', 'tone' => 'success', 'hint' => 'Keywords look structured'],
-                default => ['score' => 50, 'label' => 'Weak', 'tone' => 'warning', 'hint' => 'Use commas between keywords'],
+                empty($text) => ['score' => 0, 'label' => 'مفقود', 'tone' => 'danger', 'hint' => 'أضف كلمات مفتاحية مفصولة بفواصل'],
+                str_contains((string) $text, ',') => ['score' => 80, 'label' => 'جيد', 'tone' => 'success', 'hint' => 'الكلمات المفتاحية تبدو منظمة'],
+                default => ['score' => 50, 'label' => 'ضعيف', 'tone' => 'warning', 'hint' => 'استخدم فواصل بين الكلمات المفتاحية'],
             },
             'canonical_url', 'og_url' => filter_var($text, FILTER_VALIDATE_URL)
                 ? ['score' => 100, 'label' => 'Valid', 'tone' => 'success', 'hint' => 'URL is valid']
@@ -58,8 +58,8 @@
                 default => ['score' => 65, 'label' => 'Custom', 'tone' => 'warning', 'hint' => 'Make sure the type is intentional'],
             },
             'og_site_name' => empty($text)
-                ? ['score' => 0, 'label' => 'Missing', 'tone' => 'danger', 'hint' => 'Add brand/site name']
-                : ['score' => 90, 'label' => 'Good', 'tone' => 'success', 'hint' => 'Branding is present'],
+                ? ['score' => 0, 'label' => 'مفقود', 'tone' => 'danger', 'hint' => 'أضف اسم الموقع أو العلامة'],
+                : ['score' => 90, 'label' => 'جيد', 'tone' => 'success', 'hint' => 'اسم العلامة موجود'],
             'twitter_card' => match (true) {
                 empty($text) => ['score' => 0, 'label' => 'Missing', 'tone' => 'danger', 'hint' => 'Usually summary_large_image'],
                 in_array(strtolower((string) $text), ['summary', 'summary_large_image'], true)
@@ -67,9 +67,9 @@
                 default => ['score' => 60, 'label' => 'Custom', 'tone' => 'warning', 'hint' => 'Verify supported card type'],
             },
             'schema_json_text' => match (true) {
-                empty($text) => ['score' => 0, 'label' => 'Missing', 'tone' => 'danger', 'hint' => 'Add JSON-LD schema'],
-                json_decode((string) $text, true) !== null => ['score' => 100, 'label' => 'Valid', 'tone' => 'success', 'hint' => 'JSON structure is valid'],
-                default => ['score' => 30, 'label' => 'Invalid', 'tone' => 'danger', 'hint' => 'JSON-LD is malformed'],
+                empty($text) => ['score' => 0, 'label' => 'مفقود', 'tone' => 'danger', 'hint' => 'أضف Schema بصيغة JSON-LD'],
+                json_decode((string) $text, true) !== null => ['score' => 100, 'label' => 'صالح', 'tone' => 'success', 'hint' => 'بنية JSON صحيحة'],
+                default => ['score' => 30, 'label' => 'غير صالح', 'tone' => 'danger', 'hint' => 'تنسيق JSON-LD غير صحيح'],
             },
             'og_image' => $seoMeta?->ogImageMedia?->path
                 ? ['score' => 100, 'label' => 'Ready', 'tone' => 'success', 'hint' => 'Open Graph image exists']
@@ -174,17 +174,17 @@
         <div class="page-toolbar">
             <h2 class="page-title page-toolbar__title">{{ $title }}</h2>
             <div class="page-toolbar__actions">
-                <a class="btn btn-secondary" href="{{ $backRoute }}">Back</a>
+                <a class="btn btn-secondary" href="{{ $backRoute }}">رجوع</a>
             </div>
         </div>
 
         <div class="seo-score-summary">
             <div>
                 <div class="seo-score-summary__value">{{ $overallSeoScore }}/100</div>
-                <div class="muted">Overall SEO Score</div>
+                <div class="muted">التقييم العام لـ SEO</div>
             </div>
             <span class="seo-score-badge seo-score-badge--{{ $overallTone }}">
-                {{ $overallSeoScore >= 80 ? 'Strong SEO Setup' : ($overallSeoScore >= 55 ? 'Needs Improvement' : 'Weak SEO Setup') }}
+                {{ $overallSeoScore >= 80 ? 'إعداد SEO قوي' : ($overallSeoScore >= 55 ? 'يحتاج تحسينًا' : 'إعداد SEO ضعيف') }}
             </span>
         </div>
 
@@ -194,7 +194,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="meta_title_ar">Meta Title</label>
+                    <label for="meta_title_ar">عنوان الميتا</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['meta_title_ar']['tone'] }}">{{ $fieldScores['meta_title_ar']['score'] }}/100 {{ $fieldScores['meta_title_ar']['label'] }}</span>
                 </div>
                 <input id="meta_title_ar" type="text" name="meta_title_ar" value="{{ old('meta_title_ar', $seoMeta?->meta_title_ar) }}">
@@ -203,7 +203,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="meta_description_ar">Meta Description</label>
+                    <label for="meta_description_ar">وصف الميتا</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['meta_description_ar']['tone'] }}">{{ $fieldScores['meta_description_ar']['score'] }}/100 {{ $fieldScores['meta_description_ar']['label'] }}</span>
                 </div>
                 <textarea id="meta_description_ar" name="meta_description_ar">{{ old('meta_description_ar', $seoMeta?->meta_description_ar) }}</textarea>
@@ -212,16 +212,16 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="meta_keywords_ar">Meta Keywords</label>
+                    <label for="meta_keywords_ar">الكلمات المفتاحية</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['meta_keywords_ar']['tone'] }}">{{ $fieldScores['meta_keywords_ar']['score'] }}/100 {{ $fieldScores['meta_keywords_ar']['label'] }}</span>
                 </div>
-                <input id="meta_keywords_ar" type="text" name="meta_keywords_ar" value="{{ old('meta_keywords_ar', $seoMeta?->meta_keywords_ar) }}" placeholder="keyword1, keyword2">
+                <input id="meta_keywords_ar" type="text" name="meta_keywords_ar" value="{{ old('meta_keywords_ar', $seoMeta?->meta_keywords_ar) }}" placeholder="كلمة1, كلمة2">
                 <div class="seo-field-hint">{{ $fieldScores['meta_keywords_ar']['hint'] }}</div>
             </div>
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="canonical_url">Canonical URL</label>
+                    <label for="canonical_url">الرابط الأساسي</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['canonical_url']['tone'] }}">{{ $fieldScores['canonical_url']['score'] }}/100 {{ $fieldScores['canonical_url']['label'] }}</span>
                 </div>
                 <input id="canonical_url" type="url" name="canonical_url" value="{{ old('canonical_url', $seoMeta?->canonical_url) }}">
@@ -239,7 +239,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_title_ar">Open Graph Title</label>
+                    <label for="og_title_ar">عنوان Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_title_ar']['tone'] }}">{{ $fieldScores['og_title_ar']['score'] }}/100 {{ $fieldScores['og_title_ar']['label'] }}</span>
                 </div>
                 <input id="og_title_ar" type="text" name="og_title_ar" value="{{ old('og_title_ar', $seoMeta?->og_title_ar) }}">
@@ -248,7 +248,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_description_ar">Open Graph Description</label>
+                    <label for="og_description_ar">وصف Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_description_ar']['tone'] }}">{{ $fieldScores['og_description_ar']['score'] }}/100 {{ $fieldScores['og_description_ar']['label'] }}</span>
                 </div>
                 <textarea id="og_description_ar" name="og_description_ar">{{ old('og_description_ar', $seoMeta?->og_description_ar) }}</textarea>
@@ -257,7 +257,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_type">Open Graph Type</label>
+                    <label for="og_type">نوع Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_type']['tone'] }}">{{ $fieldScores['og_type']['score'] }}/100 {{ $fieldScores['og_type']['label'] }}</span>
                 </div>
                 <input id="og_type" type="text" name="og_type" value="{{ old('og_type', $seoMeta?->og_type) }}" placeholder="website / article">
@@ -266,7 +266,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_url">Open Graph URL</label>
+                    <label for="og_url">رابط Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_url']['tone'] }}">{{ $fieldScores['og_url']['score'] }}/100 {{ $fieldScores['og_url']['label'] }}</span>
                 </div>
                 <input id="og_url" type="url" name="og_url" value="{{ old('og_url', $seoMeta?->og_url) }}">
@@ -275,7 +275,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_site_name">Open Graph Site Name</label>
+                    <label for="og_site_name">اسم الموقع في Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_site_name']['tone'] }}">{{ $fieldScores['og_site_name']['score'] }}/100 {{ $fieldScores['og_site_name']['label'] }}</span>
                 </div>
                 <input id="og_site_name" type="text" name="og_site_name" value="{{ old('og_site_name', $seoMeta?->og_site_name) }}">
@@ -284,12 +284,12 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="og_image">Open Graph Image</label>
+                    <label for="og_image">صورة Open Graph</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['og_image']['tone'] }}">{{ $fieldScores['og_image']['score'] }}/100 {{ $fieldScores['og_image']['label'] }}</span>
                 </div>
                 <input id="og_image" type="file" name="og_image" accept="image/*">
                 @if($seoMeta?->ogImageMedia?->path)
-                    <div class="muted inline-link-note">Current: <a href="{{ asset('storage/'.$seoMeta->ogImageMedia->path) }}" target="_blank">View OG image</a></div>
+                    <div class="muted inline-link-note">الحالية: <a href="{{ asset('storage/'.$seoMeta->ogImageMedia->path) }}" target="_blank">عرض صورة Open Graph</a></div>
                 @endif
                 <div class="seo-field-hint">{{ $fieldScores['og_image']['hint'] }}</div>
             </div>
@@ -305,7 +305,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="twitter_title_ar">Twitter Title</label>
+                    <label for="twitter_title_ar">عنوان Twitter</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['twitter_title_ar']['tone'] }}">{{ $fieldScores['twitter_title_ar']['score'] }}/100 {{ $fieldScores['twitter_title_ar']['label'] }}</span>
                 </div>
                 <input id="twitter_title_ar" type="text" name="twitter_title_ar" value="{{ old('twitter_title_ar', $seoMeta?->twitter_title_ar) }}">
@@ -314,7 +314,7 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="twitter_description_ar">Twitter Description</label>
+                    <label for="twitter_description_ar">وصف Twitter</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['twitter_description_ar']['tone'] }}">{{ $fieldScores['twitter_description_ar']['score'] }}/100 {{ $fieldScores['twitter_description_ar']['label'] }}</span>
                 </div>
                 <textarea id="twitter_description_ar" name="twitter_description_ar">{{ old('twitter_description_ar', $seoMeta?->twitter_description_ar) }}</textarea>
@@ -323,12 +323,12 @@
 
             <div class="field">
                 <div class="seo-field-label">
-                    <label for="twitter_image">Twitter Image</label>
+                    <label for="twitter_image">صورة Twitter</label>
                     <span class="seo-score-badge seo-score-badge--{{ $fieldScores['twitter_image']['tone'] }}">{{ $fieldScores['twitter_image']['score'] }}/100 {{ $fieldScores['twitter_image']['label'] }}</span>
                 </div>
                 <input id="twitter_image" type="file" name="twitter_image" accept="image/*">
                 @if($seoMeta?->twitterImageMedia?->path)
-                    <div class="muted inline-link-note">Current: <a href="{{ asset('storage/'.$seoMeta->twitterImageMedia->path) }}" target="_blank">View Twitter image</a></div>
+                    <div class="muted inline-link-note">الحالية: <a href="{{ asset('storage/'.$seoMeta->twitterImageMedia->path) }}" target="_blank">عرض صورة Twitter</a></div>
                 @endif
                 <div class="seo-field-hint">{{ $fieldScores['twitter_image']['hint'] }}</div>
             </div>
@@ -343,8 +343,8 @@
             </div>
 
             <div class="actions">
-                <button class="btn btn-primary" type="submit">Save SEO</button>
-                <a class="btn btn-secondary" href="{{ $backRoute }}">Cancel</a>
+                <button class="btn btn-primary" type="submit">حفظ SEO</button>
+                <a class="btn btn-secondary" href="{{ $backRoute }}">إلغاء</a>
             </div>
         </form>
     </section>

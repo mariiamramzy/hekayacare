@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Edit Patient')
+@section('title', 'تعديل المريض')
 
 @section('content')
     <section class="card">
@@ -12,7 +12,7 @@
             @include('admin.patients._form')
 
             <div class="actions">
-                <button class="btn btn-primary" type="submit">تحديث</button>
+                <button class="btn btn-primary" type="submit">حفظ التعديلات</button>
                 <a class="btn btn-secondary" href="{{ route('admin.patients.index') }}">إلغاء</a>
             </div>
         </form>

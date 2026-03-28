@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Add Patient')
+@section('title', 'إضافة مريض')
 
 @section('content')
     <section class="card">

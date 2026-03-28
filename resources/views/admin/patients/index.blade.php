@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Patients')
+@section('title', 'المرضى')
 
 @section('content')
     <section class="card">
@@ -10,7 +10,7 @@
         </div>
 
         <form method="GET" action="{{ route('admin.patients.index') }}" class="actions" style="margin-bottom: 12px;">
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="بحث بالاسم/رقم الملف/المركز...">
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="بحث بالاسم أو رقم الملف أو المركز...">
             <select name="status">
                 <option value="">كل الحالات</option>
                 <option value="active" @selected(request('status') === 'active')>نشط</option>
@@ -18,8 +18,8 @@
                 <option value="follow_up" @selected(request('status') === 'follow_up')>متابعة</option>
                 <option value="archived" @selected(request('status') === 'archived')>مؤرشف</option>
             </select>
-            <button class="btn btn-secondary" type="submit">فلتر</button>
-            <a class="btn btn-secondary" href="{{ route('admin.patients.index') }}">Reset</a>
+            <button class="btn btn-secondary" type="submit">تصفية</button>
+            <a class="btn btn-secondary" href="{{ route('admin.patients.index') }}">إعادة ضبط</a>
         </form>
 
         <div class="table-wrap">
@@ -35,7 +35,7 @@
                         <th>الحالة</th>
                         <th>تاريخ الدخول</th>
                         <th>تاريخ الخروج</th>
-                        <th>Actions</th>
+                        <th>الإجراءات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,21 +55,20 @@
                             <td>{{ $patient->discharge_date?->format('Y-m-d') ?: '-' }}</td>
                             <td>
                                 <div class="actions">
-                                    <a class="btn btn-secondary" href="{{ route('admin.patients.edit', $patient) }}">Edit</a>
-                                    <form method="POST" action="{{ route('admin.patients.destroy', $patient) }}" onsubmit="return confirm('Delete this patient?');">
+                                    <a class="btn btn-secondary" href="{{ route('admin.patients.edit', $patient) }}">تعديل</a>
+                                    <form method="POST" action="{{ route('admin.patients.destroy', $patient) }}" onsubmit="return confirm('هل تريد حذف هذا المريض؟');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-danger" type="submit">حذف</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="10" class="muted">No patients found.</td></tr>
+                        <tr><td colspan="10" class="muted">لا يوجد مرضى.</td></tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     </section>
-
 @endsection
