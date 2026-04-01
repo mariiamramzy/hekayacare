@@ -128,7 +128,7 @@
                             <div class="gallery-page__img">
                                 <img src="{{ $image->image_url }}" alt="{{ $image->image_alt }}" loading="lazy" decoding="async">
                                 <div class="gallery-page__icon">
-                                    <a class="img-popup" href="{{ $image->image_url }}"><span class="icon-plus"></span></a>
+                                    <a class="img-popup" href="{{ $image->image_url }}" aria-label="عرض الصورة بالحجم الكامل"><span class="icon-plus"></span></a>
                                 </div>
                             </div>
                         </div>

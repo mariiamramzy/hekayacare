@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RbacSeeder::class,
             MacaryAdminSeeder::class,
+            ServiceSeeder::class,
             FaqSeeder::class,
             BlogPostSeeder::class,
             GalleryImageSeeder::class,

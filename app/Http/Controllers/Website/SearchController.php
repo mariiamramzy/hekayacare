@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Faq;
+use App\Models\Service;
 use App\Models\TeamMember;
+use App\Support\WebsiteServiceCatalog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 
 class SearchController extends Controller
 {
@@ -95,7 +98,7 @@ class SearchController extends Controller
             [
                 'title' => 'الأسئلة الشائعة',
                 'url' => route('website.faqs'),
-                'snippet' => 'إجابات واضحة عن أكثر الأسئلة شيوعًا حول العلاج والتعافي.',
+                'snippet' => 'إجابات واضحة عن أكثر الأسئلة شيوعاً حول العلاج والتعافي.',
                 'keywords' => ['الأسئلة الشائعة', 'الاسئلة الشائعة', 'الأسئلة', 'استفسارات', 'faq'],
                 'type' => 'pages',
             ],
@@ -117,24 +120,10 @@ class SearchController extends Controller
                 'title' => 'احجز استشارة',
                 'url' => route('website.book-appointment'),
                 'snippet' => 'احجز استشارتك أو موعدك من خلال صفحة الحجز.',
-                'keywords' => [
-                    'احجز استشارة',
-                    'احجز استشاره',
-                    'حجز استشارة',
-                    'حجز استشاره',
-                    'حجز موعد',
-                    'موعد استشارة',
-                    'استشارة',
-                    'استشاره',
-                    'فورم الحجز',
-                    'نموذج الحجز',
-                    'book appointment',
-                    'appointment',
-                    'book',
-                ],
+                'keywords' => ['احجز استشارة', 'حجز استشارة', 'حجز موعد', 'استشارة', 'book appointment', 'appointment'],
                 'type' => 'pages',
             ],
-        ]);
+        ])->merge($this->servicePages());
 
         return $pages
             ->map(function (array $page) use ($normalizedQuery) {
@@ -179,6 +168,45 @@ class SearchController extends Controller
             })
             ->filter()
             ->values();
+    }
+
+    protected function servicePages(): Collection
+    {
+        if (Schema::hasTable('services')) {
+            return Service::query()
+                ->active()
+                ->ordered()
+                ->get()
+                ->map(function (Service $service) {
+                    return [
+                        'title' => $service->title_ar,
+                        'url' => route('website.service-details', $service->slug),
+                        'snippet' => $service->short_description ?: $service->highlights_intro,
+                        'keywords' => array_values(array_filter([
+                            $service->title_ar,
+                            $service->page_title_ar,
+                            ...($service->highlights ?? []),
+                            ...($service->card_points ?? []),
+                        ])),
+                        'type' => 'pages',
+                    ];
+                });
+        }
+
+        return collect(WebsiteServiceCatalog::all())->map(function (array $service) {
+            return [
+                'title' => $service['title'],
+                'url' => route('website.service-details', $service['slug']),
+                'snippet' => $service['short_description'],
+                'keywords' => [
+                    $service['title'],
+                    $service['page_title'],
+                    ...$service['highlights'],
+                    ...($service['card_points'] ?? []),
+                ],
+                'type' => 'pages',
+            ];
+        });
     }
 
     protected function searchBlogPosts(string $query): Collection
@@ -251,7 +279,7 @@ class SearchController extends Controller
                     'label' => 'سؤال شائع',
                     'title' => $faq->question_ar,
                     'snippet' => $faq->answer_ar,
-                    'url' => route('website.faqs') . '#faq-' . $faq->id,
+                    'url' => route('website.faqs').'#faq-'.$faq->id,
                     'score' => $score,
                     'exact' => $exact,
                 ];
@@ -294,7 +322,7 @@ class SearchController extends Controller
                     'label' => 'عضو فريق',
                     'title' => $member->name_ar,
                     'snippet' => $member->title_ar ?: ($member->specialty_ar ?: $member->bio_ar),
-                    'url' => route('website.team') . '#team-member-' . $member->id,
+                    'url' => route('website.team').'#team-member-'.$member->id,
                     'score' => $score,
                     'exact' => $exact,
                 ];

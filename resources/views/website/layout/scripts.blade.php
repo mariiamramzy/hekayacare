@@ -1,7 +1,7 @@
 <div class="mobile-nav__wrapper">
-    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <div class="mobile-nav__overlay mobile-nav__toggler" aria-label="إغلاق القائمة" role="button" tabindex="0"></div>
     <div class="mobile-nav__content">
-        <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+        <span class="mobile-nav__close mobile-nav__toggler" aria-label="إغلاق القائمة" role="button" tabindex="0"><i class="fa fa-times"></i></span>
         <div class="logo-box">
             <a href="{{ route('website.home') }}" aria-label="logo image">
                 <img src="{{ asset('images/backgrounds/logo-1.svg') }}" width="145" alt="logo-hekaya">
@@ -23,7 +23,7 @@
 </div>
 
 <div class="search-popup">
-    <div class="search-popup__overlay search-toggler"></div>
+    <div class="search-popup__overlay search-toggler" aria-label="إغلاق البحث" role="button" tabindex="0"></div>
     <div class="search-popup__content">
         <form action="{{ route('website.search') }}" method="GET">
             <label for="search" class="sr-only">ابحث هنا ...</label>
@@ -44,7 +44,7 @@
     </a>
 </div>
 
-<a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+<a href="#" data-target="html" class="scroll-to-target scroll-to-top" aria-label="العودة لأعلى الصفحة"><i class="fa fa-angle-up"></i></a>
 
 <script src="{{ asset('vendors/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('vendors/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

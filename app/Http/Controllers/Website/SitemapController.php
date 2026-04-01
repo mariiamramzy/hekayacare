@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\PortfolioCase;
+use App\Models\Service;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 
 class SitemapController extends Controller
 {
@@ -106,8 +108,26 @@ class SitemapController extends Controller
                 })
                 ->all();
 
+            $serviceUrls = [];
+
+            if (Schema::hasTable('services')) {
+                $serviceUrls = Service::query()
+                    ->active()
+                    ->select(['slug', 'updated_at'])
+                    ->get()
+                    ->map(function (Service $service): array {
+                        return [
+                            'loc' => route('website.service-details', $service),
+                            'lastmod' => ($service->updated_at ?? now())->toAtomString(),
+                            'changefreq' => 'weekly',
+                            'priority' => '0.8',
+                        ];
+                    })
+                    ->all();
+            }
+
             return [
-                'urls' => array_merge($staticUrls, $blogUrls, $portfolioUrls),
+                'urls' => array_merge($staticUrls, $blogUrls, $portfolioUrls, $serviceUrls),
             ];
         });
 

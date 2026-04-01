@@ -1,6 +1,7 @@
 @php($currentRoute = request()->route()?->getName())
 @php($isBlogRoute = in_array($currentRoute, ['website.blogs', 'website.blog-details'], true))
 @php($isAboutMenuRoute = in_array($currentRoute, ['website.about', 'website.team', 'website.gallery', 'website.portfolio'], true))
+@php($isServicesRoute = in_array($currentRoute, ['website.services', 'website.service-details'], true))
 
 <header class="main-header-two">
     <div class="main-header-two__top">
@@ -37,7 +38,7 @@
                     </a>
                 </div>
                 <div class="main-menu-two__main-menu-box">
-                    <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
+                    <a href="#" class="mobile-nav__toggler" aria-label="فتح القائمة"><i class="fa fa-bars"></i></a>
                     <ul class="main-menu__list">
                         <li class="{{ $currentRoute === 'website.home' ? 'current' : '' }}">
                             <a href="{{ route('website.home') }}">الرئيسية<span class="main-menu-border"></span></a>
@@ -51,7 +52,7 @@
                                 <li><a href="{{ route('website.portfolio') }}">قصص شفاء</a></li>
                             </ul>
                         </li>
-                        <li class="{{ $currentRoute === 'website.services' ? 'current' : '' }}">
+                        <li class="{{ $isServicesRoute ? 'current' : '' }}">
                             <a href="{{ route('website.services') }}">الخدمات<span class="main-menu-border"></span></a>
                         </li>
                         <li class="{{ $currentRoute === 'website.faqs' ? 'current' : '' }}">
@@ -66,7 +67,7 @@
                     </ul>
                 </div>
                 <div class="main-menu-two__search-box">
-                    <a href="#" class="main-menu-two__search search-toggler icon-magnifying-glass"></a>
+                    <a href="#" class="main-menu-two__search search-toggler icon-magnifying-glass" aria-label="فتح البحث"></a>
                 </div>
                 <div class="main-menu-two__right">
                     <div class="main-menu-two__search-call">

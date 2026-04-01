@@ -12,13 +12,14 @@ class WebsitePageRegistry
             ['slug' => 'home', 'title_ar' => 'الرئيسية', 'sort_order' => 1],
             ['slug' => 'about', 'title_ar' => 'من نحن', 'sort_order' => 2],
             ['slug' => 'services', 'title_ar' => 'الخدمات', 'sort_order' => 3],
-            ['slug' => 'team', 'title_ar' => 'فريقنا العلاجي', 'sort_order' => 4],
-            ['slug' => 'gallery', 'title_ar' => 'صور المركز', 'sort_order' => 5],
-            ['slug' => 'faqs', 'title_ar' => 'الأسئلة الشائعة', 'sort_order' => 6],
-            ['slug' => 'blogs', 'title_ar' => 'المقالات', 'sort_order' => 7],
-            ['slug' => 'portfolio', 'title_ar' => 'قصص شفاء', 'sort_order' => 8],
-            ['slug' => 'contact', 'title_ar' => 'اتصل بنا', 'sort_order' => 9],
-            ['slug' => 'book-appointment', 'title_ar' => 'احجز موعد', 'sort_order' => 10],
+            ['slug' => 'service-details', 'title_ar' => 'تفاصيل الخدمة', 'sort_order' => 4],
+            ['slug' => 'team', 'title_ar' => 'فريقنا العلاجي', 'sort_order' => 5],
+            ['slug' => 'gallery', 'title_ar' => 'صور المركز', 'sort_order' => 6],
+            ['slug' => 'faqs', 'title_ar' => 'الأسئلة الشائعة', 'sort_order' => 7],
+            ['slug' => 'blogs', 'title_ar' => 'المقالات', 'sort_order' => 8],
+            ['slug' => 'portfolio', 'title_ar' => 'قصص شفاء', 'sort_order' => 9],
+            ['slug' => 'contact', 'title_ar' => 'اتصل بنا', 'sort_order' => 10],
+            ['slug' => 'book-appointment', 'title_ar' => 'احجز موعد', 'sort_order' => 11],
         ];
     }
 

@@ -13,7 +13,12 @@
                         <th>ID</th>
                         <th>الاسم</th>
                         <th>الهاتف</th>
-                        <th>الرسالة</th>
+                        <th>العنوان</th>
+                        <th>النوع</th>
+                        <th>المريض</th>
+                        <th>فرد / مؤسسة</th>
+                        <th>الخدمة</th>
+                        <th>الملاحظات</th>
                         <th>تاريخ الإنشاء</th>
                         <th>الإجراءات</th>
                     </tr>
@@ -24,7 +29,36 @@
                             <td>{{ $lead->id }}</td>
                             <td>{{ $lead->name }}</td>
                             <td>{{ $lead->mobile }}</td>
-                            <td style="max-width:320px; white-space: normal;">{{ $lead->message }}</td>
+                            <td>{{ $lead->address ?: '-' }}</td>
+                            <td>
+                                @if($lead->gender === '1')
+                                    ذكر
+                                @elseif($lead->gender === '2')
+                                    أنثى
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if($lead->is_patient === '1')
+                                    نعم
+                                @elseif($lead->is_patient === '2')
+                                    شخص ينوب عنه
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if($lead->client_type === 'individual')
+                                    فرد
+                                @elseif($lead->client_type === 'organization')
+                                    مؤسسة
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>{{ $lead->service_type ?: '-' }}</td>
+                            <td style="max-width:320px; white-space: normal;">{{ $lead->message ?: '-' }}</td>
                             <td>{{ $lead->created_at?->format('Y-m-d H:i') }}</td>
                             <td>
                                 <div class="actions">
@@ -38,7 +72,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="muted">لا توجد طلبات تواصل.</td></tr>
+                        <tr><td colspan="11" class="muted">لا توجد طلبات تواصل.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -46,3 +80,4 @@
     </section>
 
 @endsection
+

@@ -20,6 +20,7 @@
         'admin.seo.*',
         'admin.team-members.*',
         'admin.gallery-images.*',
+        'admin.services.*',
         'admin.portfolio-cases.*',
         'admin.team-departments.*',
         'admin.faqs.*',
@@ -111,6 +112,9 @@
                     @endif
                     @if($hasRoute('admin.gallery-images.index'))
                         <li><a class="{{ request()->routeIs('admin.gallery-images.*') ? 'active' : '' }}" href="{{ route('admin.gallery-images.index') }}">صور الجاليري</a></li>
+                    @endif
+                    @if($hasRoute('admin.services.index'))
+                        <li><a class="{{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">الخدمات</a></li>
                     @endif
                     @if($hasRoute('admin.portfolio-cases.index'))
                         <li><a class="{{ request()->routeIs('admin.portfolio-cases.*') ? 'active' : '' }}" href="{{ route('admin.portfolio-cases.index') }}">قصص الشفاء</a></li>

@@ -14,6 +14,11 @@ class ContactLead extends Model
     protected $fillable = [
         'name',
         'mobile',
+        'address',
+        'gender',
+        'is_patient',
+        'client_type',
+        'service_type',
         'message',
     ];
 }

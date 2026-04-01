@@ -103,23 +103,64 @@
                             <div class="error">{{ $errors->first() }}</div>
                         @endif
 
-                        <form method="POST" action="{{ route('website.contact.store') }}" class="footer-widget__appointment-form">
+                        <form method="POST" action="{{ route('website.contact.store') }}"
+                            class="footer-widget__appointment-form contact-form-validated" novalidate="novalidate">
                             @csrf
                             <div class="footer-widget__appointment-input-box">
-                                <input type="text" placeholder="الاسم" name="name" value="{{ old('name') }}" required>
+                                <input type="text" placeholder="الاسم" name="name" value="{{ old('name') }}">
                             </div>
                             <div class="footer-widget__appointment-input-box">
-                                <input type="tel" placeholder="رقم التليفون" name="mobile" value="{{ old('mobile') }}" required>
+                                <input type="tel" placeholder="رقم التليفون " name="mobile" value="{{ old('mobile') }}">
+                            </div>
+                            <div class="footer-widget__appointment-input-box">
+                                <input type="text" placeholder="العنوان ( المحافظه)" name="address" value="{{ old('address') }}">
+                            </div>
+                            <div class="footer-widget__appointment-input-box">
+                                <div class="select-box">
+                                    <select class="wide" name="gender">
+                                        <option data-display="النوع"></option>
+                                        <option value="1" @selected(old('gender') === '1')>ذكر</option>
+                                        <option value="2" @selected(old('gender') === '2')>انثي</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="footer-widget__appointment-input-box">
+                                <label style="display: block; margin-bottom: 10px; color: #fff;">هل أنت المريض؟</label>
+                                <div class="radio-group" style="display: flex; gap: 20px; align-items: center;">
+                                    <label style="color: #fff; cursor: pointer;">
+                                        <input type="radio" name="is_patient" value="1" style="margin-left: 5px;"
+                                            @checked(old('is_patient') === '1')> نعم
+                                    </label>
+
+                                    <label style="color: #fff; cursor: pointer;">
+                                        <input type="radio" name="is_patient" value="2" style="margin-left: 5px;"
+                                            @checked(old('is_patient') === '2')> شخص ينوب عنه
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="footer-widget__appointment-input-box">
+                                <div class="select-box">
+                                    <select class="wide" name="service_type">
+                                        <option data-display="نوع الخدمة"></option>
+                                        <option value="detox" @selected(old('service_type') === 'detox')>سحب السموم (Detox)</option>
+                                        <option value="behavioral_addiction" @selected(old('service_type') === 'behavioral_addiction')>علاج الإدمان السلوكي</option>
+                                        <option value="rehabilitation" @selected(old('service_type') === 'rehabilitation')>التأهيل النفسي والإقامة الكاملة</option>
+                                        <option value="dual_diagnosis" @selected(old('service_type') === 'dual_diagnosis')>علاج التشخيص المزدوج (Dual Diagnosis)</option>
+                                        <option value="consultations" @selected(old('service_type') === 'consultations')>الاستشارات النفسية والأسرية</option>
+                                        <option value="relapse_prevention" @selected(old('service_type') === 'relapse_prevention')>برامج منع الانتكاسة</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="footer-widget__appointment-input-box text-message-box">
-                                <textarea name="message" placeholder="اكتب رسالتك أو استفسارك" required>{{ old('message') }}</textarea>
+                                <textarea name="message" placeholder="ملاحظات">{{ old('message') }}</textarea>
                             </div>
                             <div class="footer-widget__appointment-btn-box">
-                                <button type="submit" class="thm-btn footer-widget__appointment-btn">إرسال الآن</button>
+                                <button type="submit" class="thm-btn footer-widget__appointment-btn">احجز موعد الأن</button>
                             </div>
                         </form>
                         <div class="result"></div>
                     </div>
+                    <div class="result"></div>
                 </div>
             </div>
         </div>

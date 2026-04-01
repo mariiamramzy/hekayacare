@@ -24,7 +24,7 @@
             <div class="col-xl-7 col-lg-9">
                 <form action="{{ route('website.search') }}" method="get" class="sidebar__search-form">
                     <input type="search" name="q" value="{{ $query }}" placeholder="ابحث في الموقع كله...">
-                    <button type="submit"><i class="icon-magnifying-glass"></i></button>
+                    <button type="submit" aria-label="بحث في الموقع"><i class="icon-magnifying-glass"></i></button>
                 </form>
             </div>
         </div>

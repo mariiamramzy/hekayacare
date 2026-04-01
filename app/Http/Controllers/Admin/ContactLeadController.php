@@ -34,7 +34,12 @@ class ContactLeadController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'mobile' => ['required', 'string', 'max:50'],
-            'message' => ['required', 'string'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'gender' => ['nullable', 'in:1,2'],
+            'is_patient' => ['nullable', 'in:1,2'],
+            'client_type' => ['nullable', 'in:individual,organization'],
+            'service_type' => ['nullable', 'string', 'max:100'],
+            'message' => ['nullable', 'string'],
         ]);
 
         $contactLead->update($validated);
