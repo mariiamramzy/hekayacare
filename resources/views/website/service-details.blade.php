@@ -912,18 +912,6 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="services-details__input-box services-details__select-box">
-                                            <select class="wide" name="client_type">
-                                                <option data-display="فرد أم مؤسسة"></option>
-                                                <option value="individual" @selected(old('client_type') === 'individual')>فرد</option>
-                                                <option value="organization" @selected(old('client_type') === 'organization')>مؤسسة</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="row services-details__service-type-row">
                                     <div class="col-xl-12">
                                         <div class="services-details__input-box services-details__select-box">

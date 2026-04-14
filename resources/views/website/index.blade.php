@@ -3,6 +3,27 @@
 @section('title', 'الرئيسية | Hekaya')
 @section('meta_description', 'مركز حكاية هو مركز متخصص في علاج الإدمان والصحة النفسية. نقدم برامج إقامة كاملة، جلسات أونلاين، ودعم نفسي مستمر.')
 
+@push('styles')
+<style>
+    .blog-card-image-frame {
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #f5f7fb;
+    }
+
+    .blog-card-image-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+</style>
+@endpush
+
 @section('content_container')
 <section class="main-slider-two">
     <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView":1,"loop":true,"effect":"fade","pagination":{"el":"#main-slider-pagination","type":"bullets","clickable":true},"navigation":{"nextEl":"#main-slider__swiper-button-next","prevEl":"#main-slider__swiper-button-prev"},"autoplay":{"delay":5000}}'>
@@ -385,7 +406,7 @@
             @forelse ($latestBlogPosts as $index => $article)
                 <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="{{ ($index + 1) * 100 }}ms">
                     <div class="blog-two__single">
-                        <div class="blog-two__img-box"><div class="blog-two__img"><img src="{{ $article->cover_image_url }}" alt="{{ $article->title_ar }}" loading="lazy" decoding="async"></div></div>
+                        <div class="blog-two__img-box"><div class="blog-two__img blog-card-image-frame"><img src="{{ $article->cover_image_url }}" alt="{{ $article->title_ar }}" loading="lazy" decoding="async"></div></div>
                         <div class="blog-two__content-box">
                             <div class="blog-two__content">
                                     <h3 class="blog-two__title"><a href="{{ route('website.blog-details', $article->slug) }}">{{ $article->title_ar }}</a></h3>

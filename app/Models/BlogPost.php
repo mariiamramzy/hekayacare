@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class BlogPost extends Model
 {
@@ -51,17 +52,32 @@ class BlogPost extends Model
     public function scopeLatestPublished(Builder $query): Builder
     {
         return $query
-            ->orderByDesc('published_at')
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
             ->orderByDesc('id');
     }
 
     public function getCoverImageUrlAttribute(): string
     {
         if ($this->coverMedia?->path) {
-            return asset('storage/'.$this->coverMedia->path);
+            return Storage::disk($this->coverMedia->disk ?: 'public')->url($this->coverMedia->path);
         }
 
         return asset('images/blog/blog-page-1-1.webp');
+    }
+
+    public function getRenderedContentAttribute(): string
+    {
+        $content = trim((string) $this->content_ar);
+
+        if ($content === '') {
+            return '';
+        }
+
+        if ($content !== strip_tags($content)) {
+            return $this->sanitizeHtmlContent($content);
+        }
+
+        return nl2br(e($content));
     }
 
     public function category(): BelongsTo
@@ -92,5 +108,15 @@ class BlogPost extends Model
     public function seoMeta(): MorphOne
     {
         return $this->morphOne(SeoMeta::class, 'metaable');
+    }
+
+    private function sanitizeHtmlContent(string $content): string
+    {
+        $sanitized = preg_replace('/<(script|style)\b[^>]*>.*?<\/\1>/is', '', $content) ?? $content;
+        $sanitized = preg_replace('/\son\w+=(["\']).*?\1/iu', '', $sanitized) ?? $sanitized;
+        $sanitized = preg_replace('/\sstyle=(["\']).*?\1/iu', '', $sanitized) ?? $sanitized;
+        $sanitized = preg_replace('/<p>\s*(?:&nbsp;|\s|<br\s*\/?>)*<\/p>/iu', '', $sanitized) ?? $sanitized;
+
+        return trim($sanitized);
     }
 }

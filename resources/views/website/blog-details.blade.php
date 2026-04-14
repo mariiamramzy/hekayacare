@@ -49,8 +49,8 @@
                         <p class="blog-details__text-1">{{ $blogPost->excerpt_ar }}</p>
                     @endif
 
-                    <div class="blog-details__text-6" style="white-space: pre-line;">
-                        {!! nl2br(e($blogPost->content_ar)) !!}
+                    <div class="blog-details__text-6">
+                        {!! $blogPost->rendered_content !!}
                     </div>
 
                     @php

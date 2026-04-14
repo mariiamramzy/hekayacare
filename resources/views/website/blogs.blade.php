@@ -9,6 +9,23 @@
         position: relative;
     }
 
+    .blog-card-image-frame {
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #f5f7fb;
+    }
+
+    .blog-card-image-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
     .blog-live-search-loading {
         display: none;
         text-align: center;

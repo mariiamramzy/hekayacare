@@ -2,7 +2,7 @@
     @forelse ($blogPosts as $index => $blogPost)
         <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="{{ (($index % 9) + 1) * 100 }}ms">
             <div class="blog-three__right">
-                <div class="blog-three__right-img">
+                <div class="blog-three__right-img blog-card-image-frame">
                     <img src="{{ $blogPost->cover_image_url }}" alt="{{ $blogPost->title_ar }}" loading="lazy" decoding="async">
                 </div>
                 <div class="blog-three__right-content">

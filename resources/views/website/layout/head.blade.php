@@ -1,5 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="kiyslPHTtV9iDhcgYK8ic8K5lZpQOPhGW4YfizW9FCU">
 @php
     $fallbackTitle = trim($__env->yieldContent('title')) ?: ($websiteSeoDefaultTitle ?? config('app.name'));
     $fallbackDescription = trim($__env->yieldContent('meta_description'))
